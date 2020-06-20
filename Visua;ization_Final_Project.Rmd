@@ -1,45 +1,127 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 ```{r}
 library(radviz3d)
+```
+
+```{r}
 data("iris")
 head(iris)
+class(iris$Species)
 radialvis3d(data = iris[, -5], cl = factor(iris$Species), domrp = F, doGtrans = F, 
             lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(iris$Species))
 
 ```
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
 ```{r}
 wine <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"),  header = TRUE)
 names(wine) <- c("Alcohol", "Malic acid", "Ash", "Alcalinity of ash", "Magnesium", "Total phenols", "Flavanoids", "Nonflavanoid phenols", "Proanthocyanins", "Color intensity", "Hue", "OD280/OD315 of diluted wines", "Proline", "Last")
-
+class(wine$Alcohol)
+head(wine)
 radialvis3d(data = wine[, 2:14], cl = factor(wine$Alcohol), domrp = F, npc = 3,doGtrans = F, 
             lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(wine$Alcohol),
             coord.cex=0.8)
 ```
-
 
 ```{r}
 
 
 adult <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"),  header = TRUE)
 names(adult) <- c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country","salary")
-#head(adult)
+head(adult)
 #print(unique(adult$salary))
-radialvis3d(data = adult[,1:14], cl = factor(adult$salary), domrp = F, doGtrans = F, 
-          lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(adult$salary)
-            )
+adult$workclass = as.numeric(adult$workclass)
+radialvis3d(data = adult[,1:2], cl = factor(as.factor(adult$salary)), domrp = F, doGtrans = F, 
+          lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(adult$salary))
 
 ```
+```{r}
+abalone <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data"),  header = TRUE)
+names(abalone) <- c( "Sex", "Length", "Diameter", "Height", "Whole weight", "Shucked weight", "Viscera weight", "Shell weight ", "Rings")
+head(abalone)
+radialvis3d(data = abalone[, 2:8], cl = factor(abalone$Rings), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(abalone$Rings),coord.cex=0.8)
+```
+```{r}
+fire <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/forestfires.csv",  header = TRUE)
+head(fire)
+radialvis3d(data = fire[,c(1,2,5,6,7,8,9,10,11,12)], cl = factor(fire$area), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(fire$area), coord.cex=0.8)
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+```
+```{r}
+car <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data"),  header = TRUE)
+names(car) <- c( "buying", "maint", "doors", "persons", "lug_boot", "safety", "result")
+car$doors <- as.numeric(car$doors)
+car$persons <- as.numeric(car$persons)
+head(car)
+radialvis3d(data = car[, c(3,4)], cl = factor(abalone$result), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(car$result),
+            coord.cex=0.8)
+```
+Wine Quality
+```{r}
+red_wine <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv"), sep=";",  header = TRUE)
+radialvis3d(data = red_wine[, 1:6], cl = factor(red_wine$quality), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(red_wine$quality),
+            coord.cex=0.8)
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+```{r}			
+white_wine <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv"), sep=";",  header = TRUE)
+radialvis3d(data = white_wine[, 1:6], cl = factor(white_wine$quality), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(white_wine$quality),
+            coord.cex=0.8)
+```
+```{r}
+Heart <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"),  header = TRUE)
+names(Heart) <- c( "age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach", "exang","oldpeak","slope","ca","thal","num")
+Heart$ca <- as.numeric(Heart$ca)
+Heart$thal <- as.numeric(Heart$thal)
+Heart$num <- as.character(Heart$num)
+head(Heart)
+radialvis3d(data = Heart[, 1:13], cl = factor(Heart$num), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = levels(Heart$num),
+            coord.cex=0.8)
+```
+```{r}
+bank <- read.csv("./bank-full.csv", sep=";",  header = TRUE)
+head(bank)
+radialvis3d(data = bank[, 1:16], cl = factor(bank$y), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(bank$y),
+            coord.cex=0.8)
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+student_mat <- read.csv("./student-mat.csv", sep=",",  header = TRUE)
+head(bank)
+radialvis3d(data = student_mat[, c(3,7,8,13,14,15,24,25,26,27,28,29,30,31,32)], cl = factor(student_mat$G3), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = levels(student_mat$G3),
+            coord.cex=0.8)
+```
+```{r}
+student_por <- read.csv("./student-por.csv", sep=",",  header = TRUE)
+head(bank)
+radialvis3d(data = student_por[, c(3,7,8,13,14,15,24,25,26,27,28,29,30,31,32)], cl = factor(student_por$G3), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = levels(student_por$G3),
+            coord.cex=0.8)
+```
+```{r}
+acivity <- read.csv("./ActivityRecognition-Smatphone.csv",  header = TRUE)
+radialvis3d(data = acivity[, 4:83], cl = factor(acivity$ActivityName), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(acivity$ActivityName),
+            coord.cex=0.8)
+```
+```{r}
+cancer <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data"),  header = TRUE)
+names(cancer) <- c( "ID", "radius", "texture", "perimeter", "area", "smoothness", "compactness", "concavity"," concave points","symmetry","fractal_dimension")
+cancer$compactness <- as.numeric(cancer$compactness)
+head(cancer)
+radialvis3d(data = cancer[, 1:10], cl = factor(cancer$fractal_dimension), domrp = F, npc = 3,doGtrans = F,
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(cancer$fractal_dimension),
+            coord.cex=0.8)
+```
