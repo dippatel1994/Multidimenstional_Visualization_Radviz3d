@@ -1,1 +1,1 @@
-# Multifimenstional_Visualization_Radviz3d
+# Multidimenstional_Visualization_Radviz3d
