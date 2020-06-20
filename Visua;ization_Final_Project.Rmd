@@ -1,0 +1,36 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(radviz3d)
+data("iris")
+head(iris)
+radialvis3d(data = iris[, -5], cl = factor(iris$Species), domrp = F, doGtrans = F, 
+            lwd = 2, alpha = 0.05, pradius = 0.025, class.labels = levels(iris$Species))
+
+```
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+wine <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"),  header = TRUE)
+names(wine) <- c("Alcohol", "Malic acid", "Ash", "Alcalinity of ash", "Magnesium", "Total phenols", "Flavanoids", "Nonflavanoid phenols", "Proanthocyanins", "Color intensity", "Hue", "OD280/OD315 of diluted wines", "Proline", "Last")
+
+radialvis3d(data = wine[, 2:14], cl = factor(wine$Alcohol), domrp = F, npc = 3,doGtrans = F, 
+            lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(wine$Alcohol),
+            coord.cex=0.8)
+```
+
+
+```{r}
+library(help = "datasets")
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
