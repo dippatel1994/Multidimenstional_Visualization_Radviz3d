@@ -26,7 +26,16 @@ radialvis3d(data = wine[, 2:14], cl = factor(wine$Alcohol), domrp = F, npc = 3,d
 
 
 ```{r}
-library(help = "datasets")
+
+
+adult <- read.csv(url("http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"),  header = TRUE)
+names(adult) <- c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country","salary")
+#head(adult)
+#print(unique(adult$salary))
+radialvis3d(data = adult[,1:14], cl = factor(adult$salary), domrp = F, doGtrans = F, 
+          lwd = 0, alpha = 0.40, pradius = 0.025, class.labels = unique(adult$salary)
+            )
+
 ```
 
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
